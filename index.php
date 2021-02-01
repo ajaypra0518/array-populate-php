@@ -194,18 +194,20 @@ $products = array(
     //     foreach($value as $key1=>$value1){ 
     //         foreach($value1 as $key2=>$value2){         
     //             foreach($value2 as $key3=>$value3){
-    //                 if($value3=="PR003"){                      
-    //                     unset($products['Electronics']['Television'][2]);                
-    //                 }                                                              
+    //                       unset($products['Electronics']['Television'][2]);                                                       
     //             }               
     //         }             
     //     }
     // }
-    unset($products['Electronics']['Television'][2]);  
+    // unset($products['Electronics']['Television'][2]);  /// first method
 
 foreach($products as $key=>$value){
 foreach($value as $key1=>$value1){            
     foreach($value1 as $key2=>$value2){
+        if($value2['id']=="PR003"){            
+            unset($products[$key][$key1][$key2]);
+        continue;               
+        } 
         echo "<tr>";
         echo "<td>".$key."</td>";
         echo "<td>".$key1."</d>";                  
@@ -233,20 +235,39 @@ echo "</table>";
     <th>Brand</th>
     </tr>";
 
-$products['Electronics']['Television'][1]['name']="BIG-555";
+// $products['Electronics']['Television'][1]['name']="BIG-555";
+// foreach($products as $key=>$value){
+// foreach($value as $key1=>$value1){            
+//     foreach($value1 as $key2=>$value2){   /////////////////////////////////////////////////////first method
+//         echo "<tr>";
+//         echo "<td>".$key."</td>";
+//         echo "<td>".$key1."</d>";                  
+//         foreach($value2 as $key3=>$value3){                       
+//             echo "<td>".$value3."</td>";                    
+//         }
+//         echo "</tr> ";
+//     }
+// }
+// } 
+
 foreach($products as $key=>$value){
-foreach($value as $key1=>$value1){            
-    foreach($value1 as $key2=>$value2){
-        echo "<tr>";
-        echo "<td>".$key."</td>";
-        echo "<td>".$key1."</d>";                  
-        foreach($value2 as $key3=>$value3){                       
-            echo "<td>".$value3."</td>";                    
+    foreach($value as $key1=>$value1){            
+        foreach($value1 as $key2=>$value2){           
+            echo "<tr>";
+            echo "<td>".$key."</td>";
+            echo "<td>".$key1."</d>";                  
+            foreach($value2 as $key3=>$value3){     
+            if($value2['id']=="PR002"){ 
+               $products[$key][$key1][$key2]['name']="BIG-555";                    
+            }                       
+                echo "<td>".$products[$key][$key1][$key2][$key3]."</td>";                      
+            }
+            echo "</tr> ";
         }
-        echo "</tr> ";
     }
-}
-}      
+    }      
+
+
 echo "</table>";
 
 ////////////////////////////Updation END//////////////////////////////
